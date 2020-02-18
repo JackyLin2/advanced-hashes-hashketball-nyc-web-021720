@@ -237,29 +237,4 @@ def winning_team
 end
 
 
-def player_with_longest_name
-  longest_name = nil
-  game_hash.map do |team, team_level_stats|
-    team_level_stats.map do |team_level_keys, team_level_values|
-     if team_level_keys == :players
-      longest_name = team_level_values.max_by{ |player_hash| player_hash[:player_name].length }
-     end
-    end
-  end
-  longest_name[:player_name]
-end
 
-def long_name_steals_a_ton?
-  long_name_player = player_with_longest_name
-  most_steals_player = nil
-  game_hash.map do |team, team_level_stats|
-    team_level_stats.map do |team_level_keys, team_level_values|
-     if team_level_keys == :players
-      most_steals_player = team_level_values.max_by{ |player_hash| player_hash[:steals] }
-     end
-    end
-  end
-  if most_steals_player[:player_name] == long_name_player
-    return true
-  end
-end
